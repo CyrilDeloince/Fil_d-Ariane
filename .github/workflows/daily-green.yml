@@ -1,0 +1,75 @@
+name: Daily Green Graph
+
+on:
+  schedule:
+    - cron: '15 17 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure git author
+        run: |
+          git config user.name "CyrilDeloince"
+          git config user.email "cyril.deloince@gmail.com"
+
+      - name: Push 10 quote commits
+        run: |
+          QUOTES=(
+            "The only way to do great work is to love what you do. - Steve Jobs"
+            "In the middle of every difficulty lies opportunity. - Einstein"
+            "It does not matter how slowly you go as long as you do not stop. - Confucius"
+            "The future belongs to those who believe in the beauty of their dreams. - Roosevelt"
+            "Success is not final, failure is not fatal: courage to continue counts. - Churchill"
+            "The best time to plant a tree was 20 years ago. The second best is now."
+            "An unexamined life is not worth living. - Socrates"
+            "Spread love everywhere you go. - Mother Teresa"
+            "When you reach the end of your rope, tie a knot and hang on. - F.D. Roosevelt"
+            "You miss 100 percent of the shots you do not take. - Wayne Gretzky"
+            "Whether you think you can or not, you are right. - Henry Ford"
+            "I have not failed. I found 10000 ways that wont work. - Edison"
+            "The mind is everything. What you think you become. - Buddha"
+            "Strive not to be a success, but rather to be of value. - Einstein"
+            "To live is the rarest thing. Most people just exist. - Oscar Wilde"
+            "The secret of getting ahead is getting started. - Mark Twain"
+            "You can never cross the ocean until you lose sight of the shore. - Gide"
+            "Happiness is not something readymade. It comes from your own actions. - Dalai Lama"
+            "Either write something worth reading or do something worth writing. - Franklin"
+            "Innovation distinguishes between a leader and a follower. - Steve Jobs"
+            "Dream big and dare to fail. - Norman Vaughan"
+            "Believe you can and you are halfway there. - Theodore Roosevelt"
+            "The most difficult thing is the decision to act, the rest is tenacity. - Earhart"
+            "A person who never made a mistake never tried anything new. - Einstein"
+            "Go confidently in the direction of your dreams. - Thoreau"
+            "Everything you have ever wanted is on the other side of fear. - George Addair"
+            "Nothing is impossible, the word itself says I am possible. - Audrey Hepburn"
+            "The question is not who will let me, but who will stop me. - Ayn Rand"
+            "Do not go where the path may lead; go where there is no path. - Emerson"
+            "You can do anything, but not everything. - David Allen"
+            "I am not a product of my circumstances. I am a product of my decisions. - Covey"
+            "The only person you are destined to become is the person you decide to be. - Emerson"
+            "It is never too late to be what you might have been. - George Eliot"
+            "Life is what happens when you are busy making other plans. - John Lennon"
+            "If you want to lift yourself up, lift up someone else. - Booker T. Washington"
+            "You only live once, but if you do it right, once is enough. - Mae West"
+            "In three words I can sum up everything about life: it goes on. - Robert Frost"
+            "The best revenge is massive success. - Frank Sinatra"
+            "People crazy enough to think they can change the world usually do. - Apple"
+            "I have a dream. - Martin Luther King Jr."
+          )
+          TOTAL=${#QUOTES[@]}
+          DAY=$(date +%j)
+          DATE=$(date +%Y-%m-%d)
+          for i in {0..9}; do
+            IDX=$(( (DAY * 10 + i) % TOTAL ))
+            echo "[$DATE] entry $((i+1))" >> log.txt
+            git add log.txt
+            git commit -m "${QUOTES[$IDX]}"
+          done
+          git push
