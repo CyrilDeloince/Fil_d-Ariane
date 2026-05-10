@@ -17,7 +17,7 @@ jobs:
       - name: Configure git author
         run: |
           git config user.name "CyrilDeloince"
-          git config user.email "cyril.deloince@gmail.com"
+          git config user.email "cyrilde9@gmail.com"
 
       - name: Push 10 quote commits
         run: |
