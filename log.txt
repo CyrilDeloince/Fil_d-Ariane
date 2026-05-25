@@ -299,3 +299,4 @@
 [2026-05-25 18:53:43] The goal is simple: never work for someone else again.
 [2026-05-25 18:53:43] Comfort is the enemy. I choose the discomfort that leads to freedom.
 [2026-05-25 18:53:43] I am building the life most people only dream of on a Thursday night.
+[2026-05-25 18:53:43] Time is the only asset that does not scale unless you build systems.
